@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.util.List;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +25,7 @@ public class Student extends PanacheEntityBase {
     private String major;
 
     @Column(nullable = false)
-    private Float gpa;
+    private BigDecimal gpa;
 
     @Column(nullable = false)
     private LocalDate birth;
@@ -64,11 +65,11 @@ public class Student extends PanacheEntityBase {
         this.major = major;
     }
 
-    public Float getGpa() {
+    public BigDecimal getGpa() {
         return gpa;
     }
 
-    public void setGpa(Float gpa) {
+    public void setGpa(BigDecimal gpa) {
         this.gpa = gpa;
     }
 
@@ -78,14 +79,6 @@ public class Student extends PanacheEntityBase {
 
     public void setBirth(LocalDate birth) {
         this.birth = birth;
-    }
-
-    public List<StudentFinance> getFinances() {
-        return finances;
-    }
-
-    public void setFinances(List<StudentFinance> finances) {
-        this.finances = finances;
     }
 
 }

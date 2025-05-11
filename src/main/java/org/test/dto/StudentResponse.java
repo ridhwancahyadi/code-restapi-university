@@ -1,5 +1,6 @@
 package org.test.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import java.util.UUID;
@@ -9,6 +10,6 @@ public record StudentResponse(
                 String studentNumber,
                 String fullname,
                 String major,
-                Float gpa,
+                BigDecimal gpa,
                 LocalDate birth) {
 }

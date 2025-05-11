@@ -45,3 +45,25 @@ CREATE TABLE
         id_course UUID NOT NULL REFERENCES public.course (id_course) ON DELETE CASCADE,
         enrolled_on DATE DEFAULT CURRENT_DATE
     );
+
+
+    -- Procedure
+
+    -- Prosedur untuk menambahkan mahasiswa ke dalam tabel student
+CREATE OR REPLACE PROCEDURE public.insert_student(
+    id_student UUID,          -- UUID yang dihasilkan di aplikasi
+    fullname VARCHAR(255),
+    student_number VARCHAR(100),
+    major VARCHAR(255),
+    gpa NUMERIC(3,2),
+    birth DATE
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+    -- Menambahkan data mahasiswa ke dalam tabel student
+    INSERT INTO public.student (id_student, student_number, fullname, major, gpa, birth)
+    VALUES (id_student, student_number, fullname, major, gpa, birth);
+END;
+$$;
