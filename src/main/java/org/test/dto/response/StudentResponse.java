@@ -1,9 +1,12 @@
-package org.test.dto;
+package org.test.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record StudentRequest(
+import java.util.UUID;
+
+public record StudentResponse(
+        UUID idStudent,
         String studentNumber,
         String fullname,
         String major,

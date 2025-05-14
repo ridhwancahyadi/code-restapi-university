@@ -1,29 +1,23 @@
-package org.test.dto;
+package org.test.dto.common;
 
-public class ApiResponseWithData<T> {
+public class ApiResponse {
     private boolean status;
     private String message;
-    private T data;
 
-    public ApiResponseWithData() {
+    public ApiResponse() {
     }
 
-    public ApiResponseWithData(boolean status, String message, T data) {
+    public ApiResponse(boolean status, String message) {
         this.status = status;
         this.message = message;
-        this.data = data;
     }
 
-    public boolean setStatus() {
+    public boolean isStatus() {
         return status;
     }
 
     public String getMessage() {
         return message;
-    }
-
-    public T getData() {
-        return data;
     }
 
     public void setStatus(boolean status) {
@@ -33,9 +27,4 @@ public class ApiResponseWithData<T> {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
 }

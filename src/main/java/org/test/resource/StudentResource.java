@@ -1,10 +1,10 @@
 package org.test.resource;
 
 import org.test.domain.Student;
-import org.test.dto.ApiResponse;
-import org.test.dto.ApiResponseWithData;
-import org.test.dto.StudentRequest;
-import org.test.dto.StudentResponse;
+import org.test.dto.common.ApiResponse;
+import org.test.dto.common.ApiResponseWithData;
+import org.test.dto.request.StudentRequest;
+import org.test.dto.response.StudentResponse;
 import org.test.services.StudentService;
 
 import jakarta.ws.rs.core.Response;
@@ -33,14 +33,15 @@ public class StudentResource {
 
     private final StudentService studentService;
 
-    @Inject
+    @Inject // Menyuntikkan dependency StudentService
     public StudentResource(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GET
-    @Path("all")
+    @Path("all") // Endpoint untuk mengambil seluruh data mahasiswa
     public Response getStudents() {
+        // Ambil list mahasiswa
         List<StudentResponse> getstudents = studentService.getStudents();
         ApiResponseWithData<List<StudentResponse>> response = new ApiResponseWithData<>(
                 true,
@@ -87,7 +88,7 @@ public class StudentResource {
     }
 
     @POST
-    @Path("/function")
+    @Path("/function") // Endpoint untuk menambah data mahasiswa menggunakan fungsi SQL
     public Response addStudentWithFunction(StudentRequest studentRequest) {
 
         // Validasi awal
@@ -112,9 +113,9 @@ public class StudentResource {
                     .entity(new ApiResponse(false, "Birth date must be a past date")).build();
         }
 
-        // Menambahkan student dengan procedure
+        // Tambahkan student melalui fungsi SQL, dan dapatkan ID hasil generate dari DB
         UUID newStudentId = studentService.addStudentWithFunction(studentRequest);
-
+        // Jika gagal (ID null), return error
         if (newStudentId == null) {
             ApiResponse response = new ApiResponse(
                     false,
@@ -122,6 +123,7 @@ public class StudentResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
 
         } else {
+            // Jika berhasil, kirim balik data mahasiswa baru yang diinput
             StudentRequest newStudent = new StudentRequest(
                     // student.id(),
                     studentRequest.studentNumber(),
